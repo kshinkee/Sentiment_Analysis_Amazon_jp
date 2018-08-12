@@ -24,7 +24,7 @@ class JapaneseTokeniser:
         self.token_filters = [POSKeepFilter(['名詞', '動詞', '形容詞', '形容動詞', '接続詞'])]
         self.char_reg_filter = [("[,\.\(\)\{\}\[\]]", " ")]
 
-    def analyse_japanese2(self, list_speech):
+    def analyse_japanese(self, list_speech):
         char_filters = [UnicodeNormalizeCharFilter()]
         for reg in self.char_reg_filter:
             char_filters.append(RegexReplaceCharFilter(*reg))
@@ -32,6 +32,12 @@ class JapaneseTokeniser:
         list_token = []
         for item in list_speech:
             list_token.append([str(token.base_form) for token in a2.analyze(item)])
-        return list_token
+        list_str = []
+        for j in list_token:
+            str2 = ""
+            for i in j:
+                str2 += i + ' '
+            list_str.append(str2)
+        return list_str
 
 
